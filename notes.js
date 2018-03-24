@@ -16,14 +16,14 @@ const saveNote = (notes) => {
 };
 
 const addNote = (title, body) => {
-  
+
   const notes = fetchNotes();
-  
+
   const note = {
     title,
     body
   }
-  
+
   const duplicateNotes = notes.filter(note => note.title === title);
 
   if (duplicateNotes.length === 0) {
@@ -39,20 +39,29 @@ var getAll = () => {
 };
 
 var getNote = (title) => {
-  console.log('Getting note', title);
+  const notes = fetchNotes();
+  const currentNote = notes.filter(note => note.title === title);
+  return currentNote[0];
 };
 
 const removeNote = (title) => {
   const notes = fetchNotes();
   const clearedNotes = notes.filter(note => note.title !== title);
   saveNote(clearedNotes);
-  
+
   return notes.length !== clearedNotes.length;
 };
+
+const logNote = (note) => {
+  console.log('--');
+  console.log(`-- Title: ${note.title}`);
+  console.log(`-- Body: ${note.body}`);
+}
 
 module.exports = {
   addNote,
   getAll,
   getNote,
-  removeNote
+  removeNote,
+  logNote
 };

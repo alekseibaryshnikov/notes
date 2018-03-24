@@ -13,15 +13,20 @@ if (command === 'add') {
   const res = notes.addNote(argv.title, argv.body);
   if (res) {
     console.log(`Note has been added...`);
-    console.log(`-- Title: ${res.title}`);
-    console.log(`-- Body: ${res.body}`);
+    notes.logNote(res);
   } else {
     console.log('Title taken!');
   }
 } else if (command === 'list') {
   notes.getAll();
 } else if (command === 'read') {
-  notes.getNote(argv.title);
+  const res = notes.getNote(argv.title);
+  if (res) {
+    console.log('Founded note:');
+    notes.logNote(res);
+  } else {
+    console.log('Note not found!');
+  }
 } else if (command === 'remove') {
   const res = notes.removeNote(argv.title);
   const message = res ? `Notes was removed!` : `Note not found!`;
